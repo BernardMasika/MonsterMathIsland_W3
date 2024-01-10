@@ -6216,6 +6216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902519398}
   - component: {fileID: 1902519399}
+  - component: {fileID: 1902519400}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6253,6 +6254,29 @@ MonoBehaviour:
   health: 150
   healthBarUI: {fileID: 3019135285225397601}
   maxHealth: 150
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1902519400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902519396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cece6428b8f9255498daab05c0add005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
+  experience: 0
+  baseMaxHealth: 54
+  baseAttack: 10
+  baseDefense: 10
+  maxHealth: 0
+  attack: 0
+  defense: 0
 --- !u!1 &1906398165
 GameObject:
   m_ObjectHideFlags: 0
@@ -7241,6 +7265,7 @@ GameObject:
   - component: {fileID: 2125828681}
   - component: {fileID: 2125828682}
   - component: {fileID: 2125828680}
+  - component: {fileID: 2125828683}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7304,6 +7329,23 @@ MonoBehaviour:
   waveDifficulty: 0
   monsterHealthBarUI: {fileID: 2848795563805304708}
   _monsters: []
+--- !u!114 &2125828683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125828679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87961bc188bfae647a23be929a7f8d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerDisplay: {fileID: 861534241}
+  timeLapse: 10
+  timesUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &1175700404763933144
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -17,6 +17,19 @@ public class QuestionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameTimer timer = GetComponent<GameTimer>();
+        timer.timesUp.AddListener(onTimeElapse);
+
+        GenerateQuestion();
+    }
+
+    void onTimeElapse()
+    {
+        Health playerHealth = playerManager.GetComponent<Health>();
+        int damage = playerHealth.CalculateDamage(_monsterManager._monsters[0].GetComponent<Statistics>(), playerManager.GetComponent<Statistics>());
+
+        playerHealth.TakeDamage(damage);
+
         GenerateQuestion();
     }
 
@@ -98,16 +111,24 @@ public class QuestionManager : MonoBehaviour
 
     public void CheckAnswerCorrect()
     {
+        Statistics playerStats = playerManager.GetComponent<Statistics>();
+        Statistics monsterStats = _monsterManager._monsters[0].GetComponent<Statistics>();
+
         if (_answerInputField.text == _answer.ToString())
         {
             Health monsterHealth = _monsterManager._monsters[0].GetComponent<Health>();
-            monsterHealth.TakeDamage(30);
+            int damage = monsterHealth.CalculateDamage(playerStats, monsterStats);
+
+            monsterHealth.TakeDamage(damage);
             GenerateQuestion();
         }
         else
         {
             Health playerHealth = playerManager.GetComponent<Health>();
-            playerHealth.TakeDamage(10);
+            int damage = playerHealth.CalculateDamage(monsterStats, playerStats);
+
+            playerHealth.TakeDamage(damage);
+
             ClearInputField("Incorrect. Try again!");
             _answerInputField.ActivateInputField();
         }
