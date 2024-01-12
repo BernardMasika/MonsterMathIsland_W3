@@ -119,6 +119,8 @@ public class QuestionManager : MonoBehaviour
             Health monsterHealth = _monsterManager._monsters[0].GetComponent<Health>();
             int damage = monsterHealth.CalculateDamage(playerStats, monsterStats);
 
+            playerStats.GainExperience(monsterStats.experience);
+
             monsterHealth.TakeDamage(damage);
             GenerateQuestion();
         }

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TutorialAssets.Scripts;
 using UnityEngine;
@@ -54,12 +55,29 @@ public class MonsterManager : MonoBehaviour
 
         Transform monster = _monsters[monsterIndex].transform;
         monster.GetComponent<MonsterController>().state = MonsterState.Queue;
-        monster.position = _queuePoint.position;
-        monster.rotation = _queuePoint.rotation;
+        StartCoroutine(LearpToPosition(monster, _queuePoint.position, _queuePoint.rotation, 0.3f));
+
+    }
+
+    private IEnumerator LearpToPosition(Transform t, Vector3 position, Quaternion rotation, float speed)
+    {
+        float distToPos = Vector3.Distance(t.position, position);
+        float timer = 0;
+
+        while (distToPos > 0.1f)
+        {
+            t.position = Vector3.Lerp(t.position, position, timer * speed);
+            t.rotation = rotation;
+            timer += Time.deltaTime;
+
+            yield return null;
+        }
+
     }
 
     public void KillMonster(int monsterIndex)
     {
+        StopAllCoroutines();
         Destroy(_monsters[monsterIndex]);
         _monsters.RemoveAt(monsterIndex);
     }
@@ -70,8 +88,8 @@ public class MonsterManager : MonoBehaviour
 
         Transform monster = _monsters[monsterIndex].transform;
         monster.GetComponent<MonsterController>().state = MonsterState.Attack;
-        monster.position = _attackPoint.position;
-        monster.rotation = _attackPoint.rotation;
+        StartCoroutine(LearpToPosition(monster, _attackPoint.position, _attackPoint.rotation, 0.3f));
+
 
         var monsterHealth = monster.GetComponent<Health>();
         monsterHealth.SetHealthBar(monsterHealthBarUI);

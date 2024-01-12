@@ -20,6 +20,7 @@ public class Statistics : MonoBehaviour
     void Start()
     {
         CalculateStats();
+        experience = prevLvUp;
     }
 
     // Update is called once per frame
@@ -35,5 +36,20 @@ public class Statistics : MonoBehaviour
         maxHealth = baseMaxHealth + (int)Mathf.Pow(level, 1.2f) * 10 + (int)Random.Range(0, 10);
         attack = baseAttack + (int)Mathf.Pow(level, 1.15f);
         defense = baseDefense + (int)Mathf.Pow(level, 1.15f);
+    }
+
+    public void GainExperience(int amount)
+    {
+        experience += amount;
+        if (experience >= nextLvUp)
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        CalculateStats();
     }
 }
