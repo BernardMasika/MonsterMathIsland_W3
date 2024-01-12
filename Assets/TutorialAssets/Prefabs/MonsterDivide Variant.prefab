@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4948317317278911377}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bd7f736ed78244f48acae6f9557ec640, type: 3}
@@ -72,14 +73,27 @@ PrefabInstance:
       value: monster1_anims
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd7f736ed78244f48acae6f9557ec640, type: 3}
+--- !u!4 &2946781056477907839 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bd7f736ed78244f48acae6f9557ec640, type: 3}
+  m_PrefabInstance: {fileID: 3418136182243601556}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6892371905590224149
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6512037778097026909, guid: 33d500cd999aa164caf34551fc47935a, type: 3}
+      propertyPath: level
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1949332801673539203, guid: 33d500cd999aa164caf34551fc47935a, type: 3}
       propertyPath: type
       value: 2
@@ -149,6 +163,12 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1949332801673539204, guid: 33d500cd999aa164caf34551fc47935a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2946781056477907839}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33d500cd999aa164caf34551fc47935a, type: 3}
 --- !u!4 &4948317317278911377 stripped
 Transform:

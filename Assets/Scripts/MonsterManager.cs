@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TutorialAssets.Scripts;
 using UnityEngine;
@@ -10,8 +11,10 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private int _amountOfMonsters = 20;
     [SerializeField] private GameObject[] _monsterPrefabs;
     [SerializeField] private float waveDifficulty;
+    [SerializeField] private Transform monsterHealthBarUI;
     public List<GameObject> _monsters;
-    
+
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -22,7 +25,7 @@ public class MonsterManager : MonoBehaviour
 
         MonsterAttacks(0);
         MoveNextMonsterToQueue();
-        
+
         CalculateWaveDifficulty(ref waveDifficulty);
     }
 
@@ -41,23 +44,40 @@ public class MonsterManager : MonoBehaviour
 
     private void InstantiateMonster()
     {
-        int monsterIndex = Mathf.FloorToInt(Random.Range(0,_monsterPrefabs.Length));
-        var monster = Instantiate(_monsterPrefabs[monsterIndex],_spawnPoint.position,Quaternion.identity);
+        int monsterIndex = Mathf.FloorToInt(Random.Range(0, _monsterPrefabs.Length));
+        var monster = Instantiate(_monsterPrefabs[monsterIndex], _spawnPoint.position, Quaternion.identity);
         _monsters.Add(monster);
     }
 
     private void MoveMonsterToQueuePoint(int monsterIndex)
     {
         if (_monsters.Count <= monsterIndex) return;
-        
+
         Transform monster = _monsters[monsterIndex].transform;
         monster.GetComponent<MonsterController>().state = MonsterState.Queue;
-        monster.position = _queuePoint.position;
-        monster.rotation = _queuePoint.rotation;
+        StartCoroutine(LearpToPosition(monster, _queuePoint.position, _queuePoint.rotation, 0.3f));
+
+    }
+
+    private IEnumerator LearpToPosition(Transform t, Vector3 position, Quaternion rotation, float speed)
+    {
+        float distToPos = Vector3.Distance(t.position, position);
+        float timer = 0;
+
+        while (distToPos > 0.1f)
+        {
+            t.position = Vector3.Lerp(t.position, position, timer * speed);
+            t.rotation = rotation;
+            timer += Time.deltaTime;
+
+            yield return null;
+        }
+
     }
 
     public void KillMonster(int monsterIndex)
     {
+        StopAllCoroutines();
         Destroy(_monsters[monsterIndex]);
         _monsters.RemoveAt(monsterIndex);
     }
@@ -65,17 +85,28 @@ public class MonsterManager : MonoBehaviour
     public void MonsterAttacks(int monsterIndex)
     {
         if (_monsters.Count <= monsterIndex) return;
-        
+
         Transform monster = _monsters[monsterIndex].transform;
         monster.GetComponent<MonsterController>().state = MonsterState.Attack;
-        monster.position = _attackPoint.position;
-        monster.rotation = _attackPoint.rotation;
+        StartCoroutine(LearpToPosition(monster, _attackPoint.position, _attackPoint.rotation, 0.3f));
+
+
+        var monsterHealth = monster.GetComponent<Health>();
+        monsterHealth.SetHealthBar(monsterHealthBarUI);
+        monsterHealth.onDeath.AddListener(MonsterDeath);
+    }
+
+    private void MonsterDeath()
+    {
+        KillMonster(0);
+        MonsterAttacks(0);
+        MoveNextMonsterToQueue();
     }
 
     public void MoveNextMonsterToQueue()
     {
         if (_monsters.Count <= 1) return;
-        
+
         MoveMonsterToQueuePoint(1);
     }
 
