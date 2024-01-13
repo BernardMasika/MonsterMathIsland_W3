@@ -6271,8 +6271,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   experience: 0
+  expBarUI: {fileID: 841795663}
   baseMaxHealth: 54
-  baseAttack: 10
+  baseAttack: 12
   baseDefense: 10
   maxHealth: 0
   attack: 0
@@ -7343,6 +7344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerDisplay: {fileID: 861534241}
   timeLapse: 10
+  startOnAwake: 1
   timesUp:
     m_PersistentCalls:
       m_Calls: []
