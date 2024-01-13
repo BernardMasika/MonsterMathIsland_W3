@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Statistics : MonoBehaviour
 {
     public int level = 1;
     public int experience;
+    public Image expBarUI;
 
     public int baseMaxHealth = 54;
     public int baseAttack = 10;
@@ -40,11 +43,37 @@ public class Statistics : MonoBehaviour
 
     public void GainExperience(int amount)
     {
+        int prevExp = experience;
         experience += amount;
+
+        StartCoroutine(LerpExpBar(prevExp));
+
         if (experience >= nextLvUp)
         {
             LevelUp();
         }
+    }
+
+    private IEnumerator LerpExpBar(int prevExp)
+    {
+        float t = 0f;
+        while (t < 1)
+        {
+            t += Time.deltaTime;
+            float currentLevelExp = experience - prevLvUp;
+            float prevLevelExp = prevExp - prevLvUp;
+
+            float totalLevelExp = nextLvUp - prevLvUp;
+
+            float mappedExp = currentLevelExp / totalLevelExp;
+
+            float mappedPrevExp = prevLevelExp / totalLevelExp;
+
+
+            expBarUI.fillAmount = Mathf.Lerp(mappedPrevExp, mappedExp, t);
+            yield return null;
+        }
+
     }
 
     private void LevelUp()

@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: level
       value: 18
       objectReference: {fileID: 0}
+    - target: {fileID: -6512037778097026909, guid: 33d500cd999aa164caf34551fc47935a, type: 3}
+      propertyPath: baseAttack
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -6512037778097026909, guid: 33d500cd999aa164caf34551fc47935a, type: 3}
+      propertyPath: baseDefense
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1949332801673539203, guid: 33d500cd999aa164caf34551fc47935a, type: 3}
       propertyPath: type
       value: 1
