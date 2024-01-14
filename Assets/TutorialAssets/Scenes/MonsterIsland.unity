@@ -6272,8 +6272,9 @@ MonoBehaviour:
   level: 1
   experience: 0
   expBarUI: {fileID: 841795663}
+  levelUpUI: {fileID: 1924184334}
   baseMaxHealth: 54
-  baseAttack: 12
+  baseAttack: 30
   baseDefense: 10
   maxHealth: 0
   attack: 0
@@ -7329,6 +7330,7 @@ MonoBehaviour:
   - {fileID: 4948317317278911379, guid: 7166e0f8d6188b64793e7f61a42a4130, type: 3}
   waveDifficulty: 0
   monsterHealthBarUI: {fileID: 2848795563805304708}
+  waveNoUI: {fileID: 1135253609}
   _monsters: []
 --- !u!114 &2125828683
 MonoBehaviour:

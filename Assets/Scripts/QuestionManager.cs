@@ -37,7 +37,8 @@ public class QuestionManager : MonoBehaviour
     {
         if (_monsterManager.IsMonsterListEmpty())
         {
-            ClearInputField("You cleared the wave!");
+            _monsterManager.SpawnMonsterWave();
+            ClearInputField("OMG! Another monster wave!");
             return;
         }
 

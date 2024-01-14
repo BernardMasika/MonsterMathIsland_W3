@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class Statistics : MonoBehaviour
     public int level = 1;
     public int experience;
     public Image expBarUI;
+    public GameObject levelUpUI;
 
     public int baseMaxHealth = 54;
     public int baseAttack = 10;
@@ -56,6 +58,9 @@ public class Statistics : MonoBehaviour
 
     private IEnumerator LerpExpBar(int prevExp)
     {
+
+        if (!expBarUI) yield break;
+
         float t = 0f;
         while (t < 1)
         {
@@ -78,7 +83,22 @@ public class Statistics : MonoBehaviour
 
     private void LevelUp()
     {
+        int prevHealth = maxHealth;
+        int prevAttack = attack;
+        int prevDefense = defense;
         level++;
         CalculateStats();
+
+        if (!levelUpUI) return;
+
+        levelUpUI.SetActive(true);
+        levelUpUI.transform.GetChild(1).GetComponent<TMP_Text>().text = $"Level: {level}\r\n" +
+            $"HP: {maxHealth} (+{maxHealth - prevHealth})\r\n" +
+            $"Attack: {attack} (+{attack - prevAttack})\r\n" +
+            $"Defense: {defense} (+{defense - prevDefense})";
+
+        Invoke(nameof(CloseLevelUpUI), 3f);
     }
+
+    void CloseLevelUpUI() { levelUpUI.SetActive(false); }
 }

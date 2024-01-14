@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using TutorialAssets.Scripts;
 using UnityEngine;
 
@@ -12,12 +13,23 @@ public class MonsterManager : MonoBehaviour
     [SerializeField] private GameObject[] _monsterPrefabs;
     [SerializeField] private float waveDifficulty;
     [SerializeField] private Transform monsterHealthBarUI;
+    [SerializeField] TMP_Text waveNoUI;
     public List<GameObject> _monsters;
+    
+    int monsterWaveCount = 0;
+
 
 
     // Start is called before the first frame update
     private void Awake()
     {
+        SpawnMonsterWave();
+    }
+
+    public void SpawnMonsterWave()
+    {
+        monsterWaveCount++;
+        
         for (var i = 0; i < _amountOfMonsters; i++)
         {
             InstantiateMonster();
@@ -27,6 +39,9 @@ public class MonsterManager : MonoBehaviour
         MoveNextMonsterToQueue();
 
         CalculateWaveDifficulty(ref waveDifficulty);
+
+        if (!waveNoUI) return;
+        waveNoUI.text = $"Wave {monsterWaveCount}";
     }
 
     //Returns a value between 0 to 1 for the difficulty of this monster wave
