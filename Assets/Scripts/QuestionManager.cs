@@ -39,6 +39,7 @@ public class QuestionManager : MonoBehaviour
         {
             _monsterManager.SpawnMonsterWave();
             ClearInputField("OMG! Another monster wave!");
+            _answerInputField.ActivateInputField();
             return;
         }
 
@@ -48,16 +49,42 @@ public class QuestionManager : MonoBehaviour
 
         string question = "";
 
+        Statistics playerStats = playerManager.GetComponent<Statistics>();
+
+        int maxRangeNumber = 0;
+
+        switch (playerStats.level)
+        {
+            case 1:
+                maxRangeNumber = Mathf.FloorToInt(Random.Range(1, 9));
+                break;
+            case 2:
+                maxRangeNumber = Mathf.FloorToInt(Random.Range(1, 25));
+                break;
+            case 3:
+                maxRangeNumber = Mathf.FloorToInt(Random.Range(1, 49));
+                break;
+            case 4:
+                maxRangeNumber = Mathf.FloorToInt(Random.Range(1, 99));
+                break;
+            case 5:
+                maxRangeNumber = Mathf.FloorToInt(Random.Range(1, 499));
+                break;
+            case 6:
+                maxRangeNumber = Mathf.FloorToInt(Random.Range(1, 1000));
+                break;
+        }
+
         switch (monsterType)
         {
             case MonsterType.Add:
-                GenerateAddSubtractQuestion(100, out question, out _answer);
+                GenerateAddSubtractQuestion(maxRangeNumber, out question, out _answer);
                 break;
             case MonsterType.Multiply:
-                GenerateMultiplyQuestion(50, 12, out question, out _answer);
+                GenerateMultiplyQuestion(maxRangeNumber, maxRangeNumber, out question, out _answer);
                 break;
             case MonsterType.Divide:
-                GenerateDivisionQuestion(100, 10, out question, out _answer);
+                GenerateDivisionQuestion(maxRangeNumber, maxRangeNumber, out question, out _answer);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

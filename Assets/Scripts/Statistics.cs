@@ -81,7 +81,7 @@ public class Statistics : MonoBehaviour
 
     }
 
-    private void LevelUp()
+    public void LevelUp()
     {
         int prevHealth = maxHealth;
         int prevAttack = attack;
